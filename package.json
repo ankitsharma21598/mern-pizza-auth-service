@@ -1,0 +1,33 @@
+{
+  "name": "auth-service",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/ankitsharma21598/mern-pizza-auth-service#readme",
+  "bugs": {
+    "url": "https://github.com/ankitsharma21598/mern-pizza-auth-service/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ankitsharma21598/mern-pizza-auth-service.git"
+  },
+  "license": "ISC",
+  "author": "ankit sharma",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/server.ts",
+    "format:fix": "prettier . --write",
+    "format:check": "prettier . --check",
+    "lint:check": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^25.5.0",
+    "eslint": "^10.1.0",
+    "prettier": "3.8.1",
+    "typescript": "5.4",
+    "typescript-eslint": "^8.57.2"
+  }
+}
