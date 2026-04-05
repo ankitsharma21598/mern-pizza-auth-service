@@ -1,9 +1,6 @@
 import winston from "winston";
 import { config } from "dotenv";
-
 config();
-
-console.log(process.env.NODE_ENV);
 
 const logger = winston.createLogger({
     level: "info",
