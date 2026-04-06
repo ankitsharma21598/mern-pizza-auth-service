@@ -5,7 +5,7 @@ import type { HttpError } from "http-errors";
 const app = express();
 
 app.get("/", (req, res) => {
-    res.send("Welcome to the Pizza App!");
+    res.status(200).send("Welcome to the Pizza App!");
 });
 
 // Global error handling middleware
