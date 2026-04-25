@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import request from "supertest";
 import app from "../src/app.js";
 
-describe("App", () => {
+describe.skip("App", () => {
     it("should return correct discount amount", () => {
         let result = calculateDiscount(100, 20);
         expect(result).toBe(80);

@@ -14,7 +14,7 @@
         // "types": [ "vitest/globals" ],
 
         // For nodejs:
-        "lib": ["esnext"],
+        "lib": ["esnext", "es6"],
         // "types": ["node"],
         // and npm install -D @types/node
 
@@ -42,6 +42,9 @@
         "isolatedModules": true,
         // "noUncheckedSideEffectImports": true,
         // "moduleDetection": "force",
-        "skipLibCheck": true
+        "strictPropertyInitialization": false,
+        "skipLibCheck": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true
     }
 }
