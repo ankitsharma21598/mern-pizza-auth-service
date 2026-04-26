@@ -1,21 +1,26 @@
 import app from "./app.js";
 import logger from "./config/logger.js";
-
 import { config } from "dotenv";
+import { AppDataSource } from "./config/data-source.js";
+import { Config } from "./config/index.js";
 
 config();
 
-const startServer = () => {
+const startServer = async () => {
     try {
-        const PORT = process.env.PORT || 3000;
+        await AppDataSource.initialize();
+        logger.info("Database connected successfully");
+        // console.log("Database connected successfully");
+        const PORT = Config.PORT;
         app.listen(PORT, () => {
-            console.log(`Server is running on port ${PORT}`);
-            logger.info(`Listening on port ${PORT}`);
+            logger.info(`Server is running on port ${PORT}`);
+            // console.log(`Server is running on port ${PORT}`);
         });
     } catch (error) {
         logger.error("Error starting server:", error);
+        // console.log("Error starting server:", error);
         process.exit(1);
     }
 };
 
-startServer();
+void startServer();

@@ -15,9 +15,7 @@ const logger = winston.createLogger({
                 winston.format.json(),
                 winston.format.prettyPrint(),
             ),
-            silent:
-                process.env.NODE_ENV === "dev" ||
-                process.env.NODE_ENV === "test",
+            silent: process.env.NODE_ENV === "test",
         }),
 
         new winston.transports.File({
@@ -29,9 +27,7 @@ const logger = winston.createLogger({
                 winston.format.json(),
                 winston.format.prettyPrint(),
             ),
-            silent:
-                process.env.NODE_ENV === "dev" ||
-                process.env.NODE_ENV === "test",
+            silent: process.env.NODE_ENV === "test",
         }),
 
         new winston.transports.Console({
@@ -41,9 +37,7 @@ const logger = winston.createLogger({
                 winston.format.json(),
                 winston.format.prettyPrint(),
             ),
-            silent:
-                process.env.NODE_ENV === "dev" ||
-                process.env.NODE_ENV === "test",
+            silent: process.env.NODE_ENV === "test",
         }),
     ],
 });

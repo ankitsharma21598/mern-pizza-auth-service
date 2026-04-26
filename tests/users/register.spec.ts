@@ -11,8 +11,9 @@ import request from "supertest";
 import { AppDataSource } from "../../src/config/data-source.js";
 import { User } from "../../src/entity/User.js";
 import { DataSource } from "typeorm";
-import { truncateTables } from "../utils/index.js";
+import { isJwt, truncateTables } from "../utils/index.js";
 import { USER_ROLES } from "../../src/constants/index.js";
+import { RefreshToken } from "../../src/entity/RefreshToken.js";
 
 /*   
 Test Writing Formula: AAA
@@ -172,6 +173,76 @@ describe("POST /auth/register", () => {
             expect(body.errors[0].message).toBe("Email already exists");
             expect(users).toHaveLength(1);
         });
+
+        test("should return the access token and refresh token inside a cookies", async () => {
+            // Arrange
+            const user = {
+                name: "John Doe",
+                email: "john.doe@example.com",
+                password: "password",
+            };
+
+            // Act
+            const response = await request(app)
+                .post("/auth/register")
+                .send(user);
+
+            // Assert
+            let accessToken: string | null = null;
+            let refreshToken: string | null = null;
+            const setCookieHeader = response.headers["set-cookie"];
+            const cookies: string[] = Array.isArray(setCookieHeader)
+                ? setCookieHeader
+                : setCookieHeader
+                  ? [setCookieHeader]
+                  : [];
+            cookies.forEach((cookie) => {
+                if (cookie.startsWith("accessToken=")) {
+                    accessToken = cookie.split(";")[0].split("=")[1];
+                }
+                if (cookie.startsWith("refreshToken=")) {
+                    refreshToken = cookie.split(";")[0].split("=")[1];
+                }
+            });
+            expect(accessToken).not.toBeNull();
+            expect(refreshToken).not.toBeNull();
+            console.log({ accessToken, refreshToken });
+            expect(isJwt(accessToken)).toBeTruthy();
+            expect(isJwt(refreshToken)).toBeTruthy();
+        });
+        test("should store the refresh token in the database", async () => {
+            // Arrange
+            const user = {
+                name: "John Doe",
+                email: "john.doe@example.com",
+                password: "password",
+            };
+
+            // Act
+            const response = await request(app)
+                .post("/auth/register")
+                .send(user);
+
+            // Assert
+            const refreshTokenRepo = connection.getRepository(RefreshToken);
+            // const refreshTokens = await refreshTokenRepo.find();
+            // console.log({ id: response.body.id });
+
+            const token = await refreshTokenRepo
+                .createQueryBuilder("refreshToken")
+                .where("refreshToken.userId = :userId", {
+                    userId: response.body as { id: number },
+                })
+                .getMany();
+
+            // console.log({ token });
+
+            expect(token).toHaveLength(1);
+            // expect(refreshTokens[0]).toHaveProperty("expiresAt");
+            // expect(users[0].refreshToken).not.toBeNull();
+            // expect(users[0].refreshToken).toHaveLength(60);
+            // expect(users[0].refreshToken).toMatch(/^\$2b\$\d+\$/);
+        });
     });
     describe("given a missing required field", () => {
         test("should return a 400 status code if email field is missing", async () => {
@@ -193,8 +264,7 @@ describe("POST /auth/register", () => {
             const users = await userRepository.find();
             expect(users).toHaveLength(0);
             const body = response.body as { errors: { msg: string }[] };
-            console.log("body", body);
-            expect(body.errors[0].msg).toBe("Email is required");
+            expect(body.errors[0].msg).toBe("Email is required.");
         });
         test.todo("should return a 400 status code if name field is missing");
         test.todo(
