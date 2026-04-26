@@ -228,16 +228,18 @@ describe("POST /auth/register", () => {
             // const refreshTokens = await refreshTokenRepo.find();
             // console.log({ id: response.body.id });
 
-            const token = await refreshTokenRepo
+            const body = response.body as { id: number };
+
+            const tokens = await refreshTokenRepo
                 .createQueryBuilder("refreshToken")
                 .where("refreshToken.userId = :userId", {
-                    userId: response.body as { id: number },
+                    userId: body.id,
                 })
                 .getMany();
 
             // console.log({ token });
 
-            expect(token).toHaveLength(1);
+            expect(tokens).toHaveLength(1);
             // expect(refreshTokens[0]).toHaveProperty("expiresAt");
             // expect(users[0].refreshToken).not.toBeNull();
             // expect(users[0].refreshToken).toHaveLength(60);
