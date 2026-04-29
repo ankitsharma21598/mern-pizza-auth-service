@@ -7,6 +7,10 @@ import logger from "../config/logger.js";
 import registerValidator from "../validators/register-validator.js";
 import { RefreshToken } from "../entity/RefreshToken.js";
 import { TokenService } from "../services/TokenService.js";
+import loginValidator from "../validators/login-validator.js";
+import authenticate from "../middlewares/authenticate.js";
+import { AuthRequest } from "../types/index.js";
+import validateRefreshToken from "../middlewares/validateRefreshToken.js";
 
 const router = Router();
 
@@ -21,6 +25,24 @@ router.post(
     registerValidator,
     (req: Request, res: Response, next: NextFunction) =>
         authController.register(req, res, next),
+);
+
+router.post(
+    "/login",
+    loginValidator,
+    (req: Request, res: Response, next: NextFunction) =>
+        authController.login(req, res, next),
+);
+
+router.get("/self", authenticate, (req: Request, res: Response) =>
+    authController.self(req as AuthRequest, res),
+);
+
+router.post(
+    "/refresh",
+    validateRefreshToken,
+    (req: Request, res: Response, next: NextFunction) =>
+        authController.refresh(req as AuthRequest, res, next),
 );
 
 export default router;

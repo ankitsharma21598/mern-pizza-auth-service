@@ -49,4 +49,12 @@ export class TokenService {
         });
         return newRefreshToken;
     }
+
+    async deleteRefreshToken(tokenId: number): Promise<void> {
+        const refreshToken = await this.refreshTokenRepository.delete(tokenId);
+        if (!refreshToken) {
+            throw createHttpError(404, "Refresh token not found");
+        }
+        return;
+    }
 }

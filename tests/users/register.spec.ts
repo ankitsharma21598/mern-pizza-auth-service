@@ -22,7 +22,7 @@ Test Writing Formula: AAA
  Assert: Verify the expected outcome 
  */
 
-describe("POST /auth/register", () => {
+describe.sequential("POST /auth/register", () => {
     let connection: DataSource;
 
     beforeAll(async () => {
@@ -38,7 +38,7 @@ describe("POST /auth/register", () => {
         await connection.destroy();
     });
 
-    describe("given all required fields are provided", () => {
+    describe("Given all fields", () => {
         test("should register a new user and return a 201 status code", async () => {
             // Arrange
             const user = {
@@ -206,7 +206,6 @@ describe("POST /auth/register", () => {
             });
             expect(accessToken).not.toBeNull();
             expect(refreshToken).not.toBeNull();
-            console.log({ accessToken, refreshToken });
             expect(isJwt(accessToken)).toBeTruthy();
             expect(isJwt(refreshToken)).toBeTruthy();
         });
