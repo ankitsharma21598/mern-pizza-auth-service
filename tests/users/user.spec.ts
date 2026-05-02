@@ -23,7 +23,11 @@ describe.sequential("GET /auth/self", () => {
 
     beforeAll(async () => {
         jwks = createJWKSMock("http://localhost:5501");
-        connection = await AppDataSource.initialize();
+
+        if (!AppDataSource.isInitialized) {
+            await AppDataSource.initialize();
+        }
+        connection = AppDataSource;
     });
 
     beforeEach(async () => {
@@ -37,7 +41,9 @@ describe.sequential("GET /auth/self", () => {
     });
 
     afterAll(async () => {
-        await connection.destroy();
+        if (connection?.isInitialized) {
+            await connection.destroy();
+        }
     });
     const createUserForSelf = async (email = "john.doe@example.com") => {
         const userRepository = connection.getRepository(User);

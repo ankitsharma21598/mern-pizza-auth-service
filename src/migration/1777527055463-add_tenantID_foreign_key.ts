@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner } from "typeorm";
+import type { MigrationInterface, QueryRunner } from "typeorm";
 
 export class AddTenantIDForeignKey1777527055463 implements MigrationInterface {
     name = "AddTenantIDForeignKey1777527055463";

@@ -10,7 +10,7 @@ import app from "../../src/app.js";
 import request from "supertest";
 import { AppDataSource } from "../../src/config/data-source.js";
 import { DataSource } from "typeorm";
-import { truncateTables, isJwt } from "../utils/index.js";
+import { isJwt } from "../utils/index.js";
 import { User } from "../../src/entity/User.js";
 import bcrypt from "bcrypt";
 import { USER_ROLES } from "../../src/constants/index.js";
@@ -19,16 +19,21 @@ describe.sequential("POST /auth/login", () => {
     let connection: DataSource;
 
     beforeAll(async () => {
-        connection = await AppDataSource.initialize();
+        if (!AppDataSource.isInitialized) {
+            await AppDataSource.initialize();
+        }
+        connection = AppDataSource;
     });
 
     beforeEach(async () => {
-        // database truncate
-        await truncateTables(connection);
+        await connection.dropDatabase();
+        await connection.synchronize();
     });
 
     afterAll(async () => {
-        await connection.destroy();
+        if (connection?.isInitialized) {
+            await connection.destroy();
+        }
     });
 
     const createUserForLogin = async (email = "john.doe@example.com") => {

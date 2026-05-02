@@ -26,7 +26,10 @@ describe.sequential("POST /auth/register", () => {
     let connection: DataSource;
 
     beforeAll(async () => {
-        connection = await AppDataSource.initialize();
+        if (!AppDataSource.isInitialized) {
+            await AppDataSource.initialize();
+        }
+        connection = AppDataSource;
     });
 
     beforeEach(async () => {
@@ -35,7 +38,9 @@ describe.sequential("POST /auth/register", () => {
     });
 
     afterAll(async () => {
-        await connection.destroy();
+        if (connection?.isInitialized) {
+            await connection.destroy();
+        }
     });
 
     describe("Given all fields", () => {

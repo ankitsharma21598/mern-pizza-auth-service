@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner } from "typeorm";
+import type { MigrationInterface, QueryRunner } from "typeorm";
 
 export class RenameTables1777450613716 implements MigrationInterface {
     name = "RenameTables1777450613716";
