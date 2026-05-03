@@ -16,7 +16,7 @@ export class User {
     @Column({ type: "varchar" })
     role: string;
 
-    @Column({ type: "varchar" })
+    @Column({ type: "varchar", select: false })
     password: string;
 
     @ManyToOne(() => Tenant)

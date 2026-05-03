@@ -37,6 +37,7 @@ export class AuthController {
                 name,
                 email,
                 password,
+                role: USER_ROLES.CUSTOMER,
             });
             this.logger.info(`User created: ${user.id}`);
 

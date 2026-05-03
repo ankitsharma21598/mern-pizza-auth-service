@@ -148,7 +148,7 @@ describe.sequential("POST /auth/register", () => {
 
             // Assert
             const userRepository = connection.getRepository(User);
-            const users = await userRepository.find();
+            const users = await userRepository.find({ select: ["password"] });
             expect(users[0]).toHaveProperty("password");
             expect(users[0].password).not.toBe(user.password);
             expect(users[0].password).toHaveLength(60);
