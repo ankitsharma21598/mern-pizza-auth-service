@@ -16,6 +16,7 @@ export default defineConfig(
             "scripts/**",
             "*.spec.ts",
             "tests/",
+            "coverage/**",
         ],
     },
     {
