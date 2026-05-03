@@ -2,7 +2,7 @@
     // Visit https://aka.ms/tsconfig to read more about this file
     "compilerOptions": {
         // File Layout
-        "rootDir": "./src",
+        "rootDir": "./",
         "outDir": "./dist",
 
         // Environment Settings
@@ -10,7 +10,7 @@
         // "module": "esnext",
         "target": "esnext",
         "module": "nodenext",
-        "moduleResolution": "nodenext",
+        // "moduleResolution": "nodenext",
         // "types": [ "vitest/globals" ],
 
         // For nodejs:
@@ -19,9 +19,9 @@
         // and npm install -D @types/node
 
         // Other Outputs
-        "sourceMap": true,
-        "declaration": true,
-        "declarationMap": true,
+        // "sourceMap": true,
+        // "declaration": true,
+        // "declarationMap": true,
 
         // Stricter Typechecking Options
         // "noUncheckedIndexedAccess": true,
@@ -46,5 +46,6 @@
         "skipLibCheck": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true
-    }
+    },
+    "exclude": ["**/*.spec.ts", "tests"]
 }

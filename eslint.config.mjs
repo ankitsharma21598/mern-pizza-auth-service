@@ -14,6 +14,8 @@ export default defineConfig(
             "eslint.config.mjs",
             "tsconfig.json",
             "scripts/**",
+            "*.spec.ts",
+            "tests/",
         ],
     },
     {
