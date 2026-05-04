@@ -19,6 +19,7 @@ const {
     DB_NAME,
     REFRESH_TOKEN_SECRET,
     JWKS_URI,
+    PRIVATE_KEY,
 } = process.env;
 
 if (!PORT) {
@@ -35,4 +36,5 @@ export const Config = {
     DB_NAME,
     REFRESH_TOKEN_SECRET,
     JWKS_URI,
+    PRIVATE_KEY,
 };

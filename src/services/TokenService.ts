@@ -2,14 +2,8 @@ import { Repository } from "typeorm";
 import { RefreshToken } from "../entity/RefreshToken.js";
 import { User } from "../entity/User.js";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import path from "path";
-import fs from "fs";
 import createHttpError from "http-errors";
 import { Config } from "../config/index.js";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 export class TokenService {
     constructor(private refreshTokenRepository: Repository<RefreshToken>) {
@@ -25,11 +19,12 @@ export class TokenService {
         return refreshToken;
     }
     generateAccessToken(payload: JwtPayload): string {
-        let privateKey: Buffer;
+        let privateKey: string;
+        if (!Config.PRIVATE_KEY) {
+            throw createHttpError(500, "Private key is not defined");
+        }
         try {
-            privateKey = fs.readFileSync(
-                path.join(__dirname, "../../certs/private.pem"),
-            );
+            privateKey = Config.PRIVATE_KEY!;
         } catch {
             throw createHttpError(500, "Failed to read private key");
         }
