@@ -9,7 +9,7 @@ export class TenantService {
     }
     async create({ name, address }: ITenant): Promise<Tenant> {
         try {
-            return this.tenantRepository.save({ name, address });
+            return await this.tenantRepository.save({ name, address });
         } catch {
             const error = createHttpError(500, "Failed to create tenant");
             throw error;
