@@ -22,10 +22,6 @@ const {
     PRIVATE_KEY,
 } = process.env;
 
-if (!PORT) {
-    throw new Error("PORT is not defined in the environment variables.");
-}
-
 export const Config = {
     PORT,
     NODE_ENV,
