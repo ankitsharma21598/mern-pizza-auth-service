@@ -4,6 +4,10 @@ import { Config } from "./index.js";
 import { User } from "../entity/User.js";
 import { RefreshToken } from "../entity/RefreshToken.js";
 import { Tenant } from "../entity/Tenant.js";
+import { Migration1777448881660 } from "../migration/1777448881660-migration.js";
+import { RenameTables1777450613716 } from "../migration/1777450613716-rename_tables.js";
+import { CreateTenantsTable1777526483055 } from "../migration/1777526483055-create_tenants_table.js";
+import { AddTenantIDForeignKey1777527055463 } from "../migration/1777527055463-add_tenantID_foreign_key.js";
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -16,6 +20,11 @@ export const AppDataSource = new DataSource({
     synchronize: false,
     logging: false,
     entities: [User, RefreshToken, Tenant],
-    migrations: ["src/migration/*.{ts,js}"],
+    migrations: [
+        Migration1777448881660,
+        RenameTables1777450613716,
+        CreateTenantsTable1777526483055,
+        AddTenantIDForeignKey1777527055463,
+    ],
     subscribers: [],
 });
