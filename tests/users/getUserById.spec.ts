@@ -13,7 +13,7 @@ import { AppDataSource } from "../../src/config/data-source.js";
 import { USER_ROLES } from "../../src/constants/index.js";
 import { createJWKSMock } from "mock-jwks";
 import { User } from "../../src/entity/User.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { Tenant } from "../../src/entity/Tenant.js";
 import request from "supertest";
 import app from "../../src/app.js";
