@@ -10,16 +10,16 @@ REST API for authentication, users, tenants, and refresh-token flows for the MER
 
 ## Tech stack
 
-| Area        | Choices                                      |
-| ----------- | -------------------------------------------- |
-| Runtime     | Node.js, ESM (`"type": "module"`)            |
-| HTTP        | Express 5                                    |
-| ORM / DB    | TypeORM 0.3, PostgreSQL                      |
-| Auth        | `express-jwt`, `jwks-rsa`, `jsonwebtoken`    |
-| Passwords   | bcrypt                                       |
-| Logging     | Winston                                      |
-| Tests       | Vitest, Supertest, coverage (v8)             |
-| Dev server  | `tsx`                                        |
+| Area       | Choices                                   |
+| ---------- | ----------------------------------------- |
+| Runtime    | Node.js, ESM (`"type": "module"`)         |
+| HTTP       | Express 5                                 |
+| ORM / DB   | TypeORM 0.3, PostgreSQL                   |
+| Auth       | `express-jwt`, `jwks-rsa`, `jsonwebtoken` |
+| Passwords  | bcrypt                                    |
+| Logging    | Winston                                   |
+| Tests      | Vitest, Supertest, coverage (v8)          |
+| Dev server | `tsx`                                     |
 
 ## Quick start
 
@@ -33,18 +33,18 @@ npm ci
 
 Config is loaded from **`.env.<NODE_ENV>`** at the repo root (see [`src/config/index.ts`](src/config/index.ts)).
 
-| Variable                 | Purpose                                              |
-| ------------------------ | ---------------------------------------------------- |
-| `PORT`                   | HTTP port (default in samples: `5501`)               |
-| `NODE_ENV`               | Selects which env file loads (`dev`, `test`, `prod`) |
-| `DB_HOST`                | Postgres host                                         |
-| `DB_PORT`                | Postgres port                                         |
-| `DB_USERNAME`            | Database user                                         |
-| `DB_PASSWORD`            | Database password                                     |
-| `DB_NAME`                | Database name                                         |
-| `REFRESH_TOKEN_SECRET`   | Secret used in refresh-token handling                 |
-| `JWKS_URI`               | JWKS URL for validating access tokens (`express-jwt`) |
-| `PRIVATE_KEY`            | PEM for signing JWTs (required where issuing tokens)|
+| Variable               | Purpose                                               |
+| ---------------------- | ----------------------------------------------------- |
+| `PORT`                 | HTTP port (default in samples: `5501`)                |
+| `NODE_ENV`             | Selects which env file loads (`dev`, `test`, `prod`)  |
+| `DB_HOST`              | Postgres host                                         |
+| `DB_PORT`              | Postgres port                                         |
+| `DB_USERNAME`          | Database user                                         |
+| `DB_PASSWORD`          | Database password                                     |
+| `DB_NAME`              | Database name                                         |
+| `REFRESH_TOKEN_SECRET` | Secret used in refresh-token handling                 |
+| `JWKS_URI`             | JWKS URL for validating access tokens (`express-jwt`) |
+| `PRIVATE_KEY`          | PEM for signing JWTs (required where issuing tokens)  |
 
 Create `.env.dev`, `.env.test`, or `.env.prod` at the repo root with the variables below (matching your local or CI Postgres and secrets).
 
@@ -111,13 +111,13 @@ Health-style welcome response.
 
 Protected with `authenticate` + role check.
 
-| Method  | Path   | Notes                |
-| ------- | ------ | -------------------- |
-| `POST`  | `/`    | Create user          |
-| `GET`   | `/`    | List users           |
-| `GET`   | `/:id` | Get user by id       |
-| `PATCH` | `/:id` | Update user          |
-| `DELETE`| `/:id` | Delete user          |
+| Method   | Path   | Notes          |
+| -------- | ------ | -------------- |
+| `POST`   | `/`    | Create user    |
+| `GET`    | `/`    | List users     |
+| `GET`    | `/:id` | Get user by id |
+| `PATCH`  | `/:id` | Update user    |
+| `DELETE` | `/:id` | Delete user    |
 
 ### Tenants — `/tenants` (ADMIN)
 
