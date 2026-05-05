@@ -21,7 +21,7 @@ export class UserService {
         const hashedPassword = await bcrypt.hash(password, saltRounds);
         // console.log({ hashedPassword, password });
         try {
-            return this.userRepository.save({
+            return await this.userRepository.save({
                 name,
                 email,
                 password: hashedPassword,
@@ -115,7 +115,7 @@ export class UserService {
             user.role = role;
         }
         try {
-            return this.userRepository.save(user);
+            return await this.userRepository.save(user);
         } catch {
             const error = createHttpError(500, "Failed to update user");
             throw error;
