@@ -6,7 +6,16 @@ import authRouter from "./routes/auth.js";
 import cookieParser from "cookie-parser";
 import tenantRouter from "./routes/tenant.js";
 import userRouter from "./routes/user.js";
+import cors from "cors";
+import { Config } from "./config/index.js";
 const app = express();
+
+app.use(
+    cors({
+        origin: [Config.CORS_ORIGIN!],
+        credentials: true,
+    }),
+);
 
 app.use(express.static("public", { dotfiles: "allow" }));
 app.use(express.json());
