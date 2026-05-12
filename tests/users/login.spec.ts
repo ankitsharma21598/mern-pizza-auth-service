@@ -12,7 +12,7 @@ import { AppDataSource } from "../../src/config/data-source.js";
 import { DataSource } from "typeorm";
 import { isJwt } from "../utils/index.js";
 import { User } from "../../src/entity/User.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { USER_ROLES } from "../../src/constants/index.js";
 
 describe.sequential("POST /auth/login", () => {

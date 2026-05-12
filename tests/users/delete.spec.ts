@@ -15,7 +15,7 @@ import { AppDataSource } from "../../src/config/data-source.js";
 import { USER_ROLES } from "../../src/constants/index.js";
 import { User } from "../../src/entity/User.js";
 import { createJWKSMock } from "mock-jwks";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { Tenant } from "../../src/entity/Tenant.js";
 
 describe.sequential("DELETE /users/:id", () => {

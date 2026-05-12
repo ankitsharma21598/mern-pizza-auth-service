@@ -14,7 +14,7 @@ import { DataSource } from "typeorm";
 import { AppDataSource } from "../../src/config/data-source.js";
 import { USER_ROLES } from "../../src/constants/index.js";
 import { User } from "../../src/entity/User.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { createJWKSMock } from "mock-jwks";
 
 describe.sequential("GET /auth/self", () => {
